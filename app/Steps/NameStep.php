@@ -25,10 +25,10 @@ class NameStep extends Step
     {
         return [
             [
-                'state.name'     => ['required', Rule::unique('users', 'name')->ignoreModel($this->model)],
+                'state.name' => ['required', 'string', 'max:255'],
             ],
             [
-                'state.name'     => __('Name'),
+                'state.name' => __('Name'),
             ],
         ];
     }

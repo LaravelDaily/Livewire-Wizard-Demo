@@ -25,10 +25,10 @@ class EmailStep extends Step
     {
         return [
             [
-                'state.email'     => ['required', 'email', Rule::unique('users', 'email')->ignoreModel($this->model)],
+                'state.email' => ['required', 'email'], // , 'unique:users'],
             ],
             [
-                'state.email'     => __('Email'),
+                'state.email' => __('Email'),
             ],
         ];
     }

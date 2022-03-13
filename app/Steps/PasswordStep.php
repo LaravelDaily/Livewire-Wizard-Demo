@@ -2,6 +2,7 @@
 
 namespace App\Steps;
 
+use App\Models\User;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -27,13 +28,11 @@ class PasswordStep extends Step
 
     public function save($state)
     {
-        $user = $this->model;
-
-        $user->name = $state['name'];
-        $user->email = $state['email'];
-        $user->password = Hash::make($state['password']);
-
-        $user->save();
+        $user = User::create([
+            'name' => $state['name'],
+            'email' => $state['email'],
+            'password' => Hash::make($state['password']),
+        ]);
 
         event(new Registered($user));
 
@@ -46,10 +45,10 @@ class PasswordStep extends Step
     {
         return [
             [
-                'state.password'     => ['required', 'confirmed', Rules\Password::defaults()],
+                'state.password' => ['required', 'confirmed', Rules\Password::defaults()],
             ],
             [
-                'state.password'     => __('Password'),
+                'state.password' => __('Password'),
             ],
         ];
     }
